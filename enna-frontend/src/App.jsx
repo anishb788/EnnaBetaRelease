@@ -31,7 +31,7 @@ function App() {
   // Define testBackend function FIRST
   const testBackend = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/health');
+      const response = await fetch('http://${window.location.hostname}:5000/api/health');
       const data = await response.json();
       setBackendConnected(data.status === 'success');
     } catch (error) {
@@ -54,7 +54,7 @@ function App() {
         }
       }
       
-      const response = await fetch(`http://localhost:5000/api/streaks${queryParams}`);
+      const response = await fetch(`http://${window.location.hostname}:5000/api/streaks${queryParams}`);
       const data = await response.json();
       
       if (data.status === 'success') {
@@ -71,13 +71,13 @@ function App() {
   // Fetch user name and emoji
   const fetchUserName = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user/name');
+      const response = await fetch('http://${window.location.hostname}:5000/api/user/name');
       const data = await response.json();
       if (data.status === 'success' && data.name) {
         setUserName(data.name);
       }
 
-      const emojiResponse = await fetch('http://localhost:5000/api/user/emoji');
+      const emojiResponse = await fetch('http://${window.location.hostname}:5000/api/user/emoji');
       const emojiData = await emojiResponse.json();
       if (emojiData.status === 'success' && emojiData.emoji) {
         setUserEmoji(emojiData.emoji);
@@ -106,7 +106,7 @@ function App() {
   const checkTutorialStatus = async () => {
     try {
       // ALWAYS check if there are any transactions in the database first
-      const response = await fetch('http://localhost:5000/api/transactions?limit=1');
+      const response = await fetch('http://${window.location.hostname}:5000/api/transactions?limit=1');
       const data = await response.json();
       
       if (data.status === 'success' && data.transactions.length === 0) {
